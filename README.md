@@ -10,11 +10,13 @@ Interface simples e responsiva,
 Organização automática das informações recebidas.
 
 Tecnologias Utilizadas: 
-HTML5,
-CSS3,
-JavaScript,
 Google Sheets API,
 Google Cloud API Credentials.
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" />
+</p>
 
 Objetivo: 
 Automatizar o armazenamento de dados recebidos pelo sistema, facilitando o gerenciamento e a visualização das informações diretamente em planilhas online.
