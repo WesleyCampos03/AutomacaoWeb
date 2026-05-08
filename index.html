@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requisição de Materiais</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>Requisição de Materiais</h1>
+      <p>Sistema interno de solicitação</p>
+    </div>
+
+    <form id="formRequisicao">
+
+      <div class="form-group">
+        <label for="centroCusto">Centro de Custo</label>
+
+        <select id="centroCusto" name="centroCusto" required>
+          <option value="">Selecione</option>
+          <option>Limpeza e conservação</option>
+          <option>Almoxarifado</option>
+          <option>Envase</option>
+          <option>Sopro</option>
+          <option>Sabão</option>
+          <option>LCQ</option>
+          <option>Esteira</option>
+          <option>CD</option>
+          <option>Granel</option>
+          <option>ADM</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="produto">Produto</label>
+
+        <input
+          type="text"
+          id="produto"
+          name="produto"
+          placeholder="Ex: Lava-louças"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="quantidade">Quantidade em litros</label>
+
+        <input
+          type="number"
+          id="quantidade"
+          name="quantidade"
+          min="0.5"
+          step="0.5"
+          placeholder="Ex: 5"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="dataRequisicao">Data da Requisição</label>
+
+        <input
+          type="date"
+          id="dataRequisicao"
+          name="dataRequisicao"
+          required
+        />
+      </div>
+
+      <button type="submit">Enviar Requisição</button>
+
+    </form>
+
+    <div class="footer">
+      © 2026 - Sistema Corporativo
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("formRequisicao").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const centroCusto = document.getElementById("centroCusto").value.trim();
+      const produto = document.getElementById("produto").value.trim();
+      const quantidade = document.getElementById("quantidade").value;
+      const dataRequisicao = document.getElementById("dataRequisicao").value;
+
+      if (!centroCusto) {
+        alert("Selecione um centro de custo.");
+        return;
+      }
+
+      if (!produto) {
+        alert("Informe o produto.");
+        return;
+      }
+
+      if (!quantidade || quantidade <= 0) {
+        alert("Quantidade deve ser maior que zero.");
+        return;
+      }
+
+      if (!dataRequisicao) {
+        alert("Informe a data da requisição.");
+        return;
+      }
+
+      const form = new FormData(this);
+      const botao = document.querySelector("button");
+
+      botao.innerText = "Enviando...";
+      botao.disabled = true;
+
+      fetch("http://localhost:3000/enviar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(form)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Enviado com sucesso!");
+        this.reset();
+      })
+      .catch(() => {
+        alert("Erro ao enviar!");
+      })
+      .finally(() => {
+        botao.innerText = "Enviar Requisição";
+        botao.disabled = false;
+      });
+    });
+  </script>
+
+</body>
+</html>
